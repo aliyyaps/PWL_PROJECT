@@ -7,8 +7,8 @@
 <div class="card">
     <div class="card-body register-card-body">
       @if ($errors->any())
-            <div class="alert alert-danger">
-              <strong>Whoops!</strong> Inputan Kamu Ada Yang Salah<br><br>
+            <div class="alert alert-info" role="alert">
+              <strong>Whoops!</strong> <br><br>
                 <ul>
                   @foreach ($errors->all() as $error)
                     <li>{{ $error }}</li>

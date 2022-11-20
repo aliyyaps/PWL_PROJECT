@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Barang;
 use App\Models\Label;
 use App\Models\Inventaris;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use App\Models\LogAudity;
 use Illuminate\Support\Facades\DB;
@@ -66,7 +67,8 @@ class BarangController extends Controller
     public function show($id)
     {
         $barang = Barang::with('label')->where('id', $id)->first();
-        return view('BarangPage.detail', ['barang' => $barang]);
+        $log=LogAudity::with('user','barang')->where('label_id',$barang->label_id)->where('barang_id',$id)->get();
+        return view('BarangPage.detail', ['barang' => $barang,'log'=>$log]);
     }
 
     /**
@@ -102,6 +104,7 @@ class BarangController extends Controller
             $log->barang_id=$barang->id;
             $log->label_id=$barang->label_id;
             $log->harga=$barang->harga;
+            $log->namaorang=Auth::user()->name();
             $barang->harga=$request->get('harga');
             $log->hargabaru=$request->get('harga');
             $barang->save();
@@ -114,6 +117,8 @@ class BarangController extends Controller
             $log->barang_id=$barang->id;
             $log->label_id=$barang->label_id;
             $log->harga=$barang->harga;
+            $namaorang=DB::table('users')->where('id',Auth::user()->id)->first();
+            $log->namaorang=$namaorang->name;
             $barang->harga=$request->get('harga');
             $log->hargabaru=$request->get('harga');
             $barang->save();

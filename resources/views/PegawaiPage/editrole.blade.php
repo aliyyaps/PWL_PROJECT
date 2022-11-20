@@ -18,19 +18,26 @@
                     </ul>
                 </div>
                 @endif
-                <form method="post" action="{{ route('label.update', $label->id) }}" id="myForm">
+                <form method="POST" action="{{ route('role.update', $akun->id) }}" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
                     <div class="form-group">
-                        <label for="nama_label">Nama label</label>
-                        <input type="text" name="nama_label" class="form-control" id="nama_label" value="{{ $label->nama_label }}" aria-describedby="nama_label">
+                        <label for="id"></label>
+                        <input type="hidden" name="id" class="form-control" id="id" value="{{ $akun->id }}" readonly="readonly" aria-describedby="id">
                     </div>
                     <div class="form-group">
-                        <label for="deskripsi">Deskrip</label>
-                        <input type="text" name="deskripsi" class="form-control" id="deskripsi" value="{{ $label->deskripsi }}" aria-describedby="deskripsi">
+                        <label for="name">Nama Orang</label>
+                        <input type="text" name="name" class="form-control" id="name" value="{{ $akun->name }}" aria-describedby="name">
+                    </div>
+                    <div class="form-group">
+                        <label for="level">Role User</label>
+                        <select id="level" class="form-control" name="level">
+                            <option value="admin" selected>admin</option>
+                            <option value="pengguna">pengguna</option>
+                        </select>
                     </div>
                     <button type="submit" class="btn btn-primary">Submit</button>
-                    <a class="btn btn-success mt-2 mb-2" href="{{ route('label.index') }}">Kembali</a>
+                    <a class="btn btn-success mt-2 mb-2" href="{{ route('admin.index') }}">Kembali</a>
                 </form>
             </div>
         </div>

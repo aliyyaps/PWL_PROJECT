@@ -6,8 +6,10 @@ use App\Models\Label;
 use App\Models\Barang;
 use App\Models\User;
 use App\Models\Pegawai;
+use Illuminate\Support\Facades\Auth;
 use App\Models\Pengembalian;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use PDF;
 
 class AdminController extends Controller
@@ -23,6 +25,24 @@ class AdminController extends Controller
         $label = Label::count();
         $akun = User::count();
         return view('homepage.index', compact('barang', 'label', 'akun'));
+    }
+    public function gantirole()
+    {
+        $akun = User::all();
+        
+        return view('PegawaiPage.gantirole', compact('akun'));
+    }
+    public function editrole($id)
+    {
+        $akun = DB::table('users')->where('id',$id)->first();
+        
+        return view('PegawaiPage.editrole', compact('akun'));
+    }
+    public function updaterole(Request $request,$id)
+    {
+        $akun2 = $request->get('level');
+        $akun = DB::table('users')->where('id',$id)->update('level',$akun2);
+        return redirect()->route('admin.gantirole');
     }
 
     /**

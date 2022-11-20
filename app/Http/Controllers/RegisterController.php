@@ -22,6 +22,8 @@ class RegisterController extends Controller
         'name' => 'required',
         'email' => 'required|unique:users',
         'password' => 'required',
+    ],[
+        'email.unique' => 'Email Sudah Digunakan.',
     ]);
         $user = new User;
         $user->name = $request->get('name');

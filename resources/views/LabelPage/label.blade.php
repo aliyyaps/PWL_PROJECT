@@ -23,13 +23,13 @@
                                 <td>{{ $d -> nama_label }}</td>
                                 <td>{{ $d -> deskripsi }}</td>
                                 <td>
-                                    <form action="{{ route('label.destroy',['label'=>$d->id]) }}" method="POST">
+                                    {{-- <form action="{{ route('label.destroy',['label'=>$d->id]) }}" method="POST"> --}}
                                         <a class="btn btn-info" href="{{ route('label.show', $d->id) }}">Show</a>
                                         <a class="btn btn-primary" href="{{ route('label.edit', $d->id) }}">Edit</a>
                                         @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-danger">Delete</button>
-                                    </form>
+                                        {{-- @method('DELETE') --}}
+                                        {{-- <button type="submit" class="btn btn-danger">Delete</button>
+                                    </form> --}}
                                 </td>
                             </tr>
                             @endforeach

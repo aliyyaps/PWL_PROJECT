@@ -21,4 +21,7 @@ class Barang extends Model
     public function inventaris(){
         return $this->hasMany(Inventaris::Class);
     }
+    public function logaudity(){
+        return $this->hasMany(Inventaris::Class);
+    }
 }

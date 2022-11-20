@@ -76,12 +76,12 @@ class LabelController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'Label' => 'required',
+            'nama_label' => 'required',
         ]);
 
         $label = Label::find($id);
-        $label->nama_label = $request->get('Label');
-        $label->deskripsi = $request->get('Deskripsi');
+        $label->nama_label = $request->get('nama_label');
+        $label->deskripsi = $request->get('deskripsi');
         $label->save();
         return redirect()->route('label.index')
             ->with('success', 'Label Berhasil Di Update');

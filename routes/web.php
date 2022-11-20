@@ -13,6 +13,7 @@ use App\Http\Controllers\LabelController;
 use App\Http\Controllers\BarangController;
 use App\Http\Controllers\PegawaiController;
 use App\Http\Controllers\SewaController;
+use App\Http\Controllers\RoleController;
 use App\Http\Controllers\Sewa2Controller;
 use App\Http\Controllers\PengembalianController;
 
@@ -50,9 +51,13 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('barang', BarangController::class);
         Route::resource('pegawai', PegawaiController::class);
         Route::resource('inventaris', InventarisController::class);
+        Route::resource('role', RoleController::class);
         Route::get('/barangkeluar', [InventarisController::class,'index2'])->name('inventaris.index2');
         Route::get('/inputbarangkeluar/{id}/{labelid}', [InventarisController::class,'create2'])->name('inventaris.create2');
         Route::get('/inputbarangmasuk/{id}/{labelid}', [InventarisController::class,'create']);
+        Route::get('/gantirole', [AdminController::class,'gantirole'])->name('admin.gantirole');
+        Route::post('/updaterole/{id}', [AdminController::class,'updaterole'])->name('admin.updaterole');
+        Route::get('/editrole/{id}', [AdminController::class,'editrole'])->name('admin.editrole');
         Route::post('/barangkeluarstore', [InventarisController::class,'store2'])->name('inventaris.store2');
         Route::get('/cetakbarangmasuk', [InventarisController::class,'cetakmasuk'])->name('inventaris.cetakmasuk');
         Route::get('/cetakbarangkeluar', [InventarisController::class,'cetakkeluar'])->name('inventaris.cetakkeluar');
@@ -66,6 +71,7 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('pengguna', PenggunaController::class);
         Route::resource('sewa', SewaController::class);
         Route::resource('pengembalian', PengembalianController::class);
+        Route::resource('barang', BarangController::class);
         Route::get('/sewa/pay/{id}', [SewaController::class, 'payment'])->name('sewa.payment');
         Route::put('/sewa/pay/{id}', [SewaController::class, 'pay'])->name('sewa.pay');
     });

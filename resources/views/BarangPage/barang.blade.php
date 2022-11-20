@@ -15,7 +15,9 @@
                                 <th>Gambar Barang</th>
                                 <th>Nama Barang</th>
                                 <th>Label</th>
+                                @if(auth()->user()->level=='admin')
                                 <th>Tanggal <br> Penambahan Barang</th>
+                                @endif
                                 <th>Stok <br> Saat Ini</th>
                                 <th>Harga <br> Saat Ini</th>
                                 @if(auth()->user()->level == 'admin')
@@ -28,21 +30,22 @@
                                 <td><img width="100" height="100" src="{{ asset('storage/'.$m->featured_image) }}"></td>
                                 <td>{{ $m -> nama_barang }}</td>
                                 <td>{{ $m -> label -> nama_label }}</td>
+                                @if(auth()->user()->level=='admin')
                                 <td>{{ $m -> created_at }}</td>
+                                @endif
                                 <td>{{ $m -> stock }}</td>
                                 <td>{{ $m -> harga }}</td>
                                 @if(auth()->user()->level == 'admin')
                                 <td>
-                                    <form action="{{ route('barang.destroy',$m->id) }}" method="POST">
-                                        <a class="btn btn-info" href="{{ route('barang.show', $m->id) }}">Show</a>
+                                        <a class="btn btn-info" href="{{ route('barang.show', $m->id) }}">Detail Barang</a>
                                         <a class="btn btn-primary" href="{{ route('barang.edit', $m->id) }}">Edit</a>
                                         <br>
                                         <a class="btn btn-success" href="{{url('inputbarangmasuk/'.$m->id.'/'.$m->label_id)}}">tambah stock</a>
                                         <a class="btn btn-success" href="{{url('inputbarangkeluar/'.$m->id.'/'.$m->label_id)}}">stock keluar</a>
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="btn btn-danger">Delete</button>
-                                    </form>
+                                       
+                                   
                                 </td>
                                 @endif
                             </tr>
@@ -50,7 +53,7 @@
                         </table>
                         @if(auth()->user()->level == 'admin')
                         <div class="float-right mt-2">
-                            <a class="btn btn-success" href="{{ route('barang.create') }}"> Input Barang</a>
+                            <a class="btn btn-success" href="{{ route('barang.create') }}"> Tambah Barang</a>
                         </div>
                         @endif
                         <div class="float-left mt-2">

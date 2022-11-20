@@ -49,6 +49,12 @@
                 <p>Data Pegawai</p>
               </a>
             </li>
+            <li class="nav-item">
+              <a href="/gantirole" class="nav-link">
+                <i class="fas fa-user-tie nav-icon"></i>
+                <p>Data Akun</p>
+              </a>
+            </li>
           </ul>
         </li>
       </ul>
@@ -87,9 +93,9 @@
         <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
         <li class="nav-item">
-          <a href="/mobil2" class="nav-link">
+          <a href="/barang" class="nav-link">
             <i class="fas fa-car nav-icon"></i>
-            <p>Data Mobil</p>
+            <p>Data Barang</p>
           </a>
         </li>
         <li class="nav-item">

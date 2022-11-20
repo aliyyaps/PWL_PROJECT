@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Inventaris;
 use App\Models\Barang;
 use PDF;
+use Carbon\Carbon;
 use App\Models\Label;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -20,13 +21,13 @@ class InventarisController extends Controller
     public function index()
     {
         $inventaris = Inventaris::with('label','barang')->where('status',"Barang Masuk")->get();
-        $paginate = Inventaris::orderBy('id', 'asc')->where('status',"Barang Masuk")->paginate(5);
+        $paginate = Inventaris::orderBy('id', 'desc')->where('status',"Barang Masuk")->paginate(5);
         return view('InventarisPage.barangmasuk.inventaris', ['paginate' => $paginate]);
     }
     public function index2()
     {
         $inventaris = Inventaris::with('label','barang')->where('status',"Barang Keluar")->get();
-        $paginate = Inventaris::orderBy('id', 'asc')->where('status',"Barang Keluar")->paginate(5);
+        $paginate = Inventaris::orderBy('id', 'desc')->where('status',"Barang Keluar")->paginate(5);
         return view('InventarisPage.barangkeluar.inventaris', ['paginate' => $paginate]);
     }
 
@@ -94,29 +95,30 @@ class InventarisController extends Controller
             'stock' => 'required',
 
         ]);
-        $idlabel = $request->get('nama_label');
-        $idbarang = $request->get('nama_barang');
-        if(DB::table('barang')->where('id',$idbarang)->where('label_id',$idlabel)->exists()){
+        $idbarang = $request->get('id');
+        // if(DB::table('barang')->where('id',$idbarang)->where('label_id',$idlabel)->exists()){
             $inventaris = new Inventaris;
-            $label=Label::find($idlabel);
             $barang=Barang::find($idbarang);
+            $label=Label::find($barang->label_id);
             $inventaris->label()->associate($label);
             $inventaris->barang()->associate($barang);
             $inventaris->stock=$request->get('stock');
             $inventaris->status="Barang Masuk";
-            $barang = Barang::with('label')->where('id', $idbarang)->where('label_id',$idlabel)->first();
+            $barang = Barang::with('label')->where('id', $idbarang)->where('label_id',$barang->label_id)->first();
             $inventaris->stocklama=$barang->stock;
             $barang->stock =$barang->stock + $request->get('stock');
             $inventaris->stockbaru=$barang->stock;
+            // $current_date_time = Carbon::now()->toDateTimeString();
+            // $inventaris->created_at=$current_date_time; 
             $inventaris->save();
             $barang->save();
             return redirect()->route('inventaris.index')
             ->with('success', 'Barang Berhasil Ditambahkan');
 
-        }else{
-            return redirect()->route('inventaris.index')
-            ->with('error', 'Barang tidak ada');
-        }
+        // }else{
+        //     return redirect()->route('inventaris.index')
+        //     ->with('error', 'Barang tidak ada');
+        // }
     }
 
     /**
