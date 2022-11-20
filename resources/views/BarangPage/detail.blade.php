@@ -12,6 +12,9 @@
                     <li class="list-group-item"><b>Nama Barang </b>{{$barang->nama_barang}}</li>
                 </ul>
                 <ul class="list-group list-group-flush">
+                    <li class="list-group-item"><b>Deskripsi Barang </b>{{$barang->label->deskripsi}}</li>
+                </ul>
+                <ul class="list-group list-group-flush">
                     <li class="list-group-item"><img width="100" height="100" src="{{ asset('storage/'.$barang->featured_image) }}"></li>
                 </ul>
             </div>

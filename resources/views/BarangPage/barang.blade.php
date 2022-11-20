@@ -7,16 +7,17 @@
             <div class="col-12 mt-4">
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-title">Gambar Barang</h3>
+                        <h3 class="card-title">List Data Barang</h3>
                     </div>
-
                     <div class="card-body">
                         <table id="example2" class="table table-bordered table-hover">
                             <tr>
-                                <th>Gambar</th>
+                                <th>Gambar Barang</th>
                                 <th>Nama Barang</th>
                                 <th>Label</th>
-                                <th>Ditambahkan</th>
+                                <th>Tanggal <br> Penambahan Barang</th>
+                                <th>Stok <br> Saat Ini</th>
+                                <th>Harga <br> Saat Ini</th>
                                 @if(auth()->user()->level == 'admin')
                                 <th width="280px">Action</th>
                                 @endif
@@ -28,11 +29,16 @@
                                 <td>{{ $m -> nama_barang }}</td>
                                 <td>{{ $m -> label -> nama_label }}</td>
                                 <td>{{ $m -> created_at }}</td>
+                                <td>{{ $m -> stock }}</td>
+                                <td>{{ $m -> harga }}</td>
                                 @if(auth()->user()->level == 'admin')
                                 <td>
                                     <form action="{{ route('barang.destroy',$m->id) }}" method="POST">
                                         <a class="btn btn-info" href="{{ route('barang.show', $m->id) }}">Show</a>
                                         <a class="btn btn-primary" href="{{ route('barang.edit', $m->id) }}">Edit</a>
+                                        <br>
+                                        <a class="btn btn-success" href="{{url('inputbarangmasuk/'.$m->id.'/'.$m->label_id)}}">tambah stock</a>
+                                        <a class="btn btn-success" href="{{url('inputbarangkeluar/'.$m->id.'/'.$m->label_id)}}">stock keluar</a>
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-danger">Delete</button>

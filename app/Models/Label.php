@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Mobil;
+use App\Models\Barang;
 use App\Models\Inventaris;
 class Label extends Model
 {
@@ -15,8 +15,8 @@ class Label extends Model
     protected $fillable = [
         'nama_label',
     ];
-    public function mobil(){
-        return $this->hasMany(Mobil::Class);
+    public function barang(){
+        return $this->hasMany(Barang::Class);
     }
     public function inventaris(){
         return $this->hasMany(Inventaris::Class);

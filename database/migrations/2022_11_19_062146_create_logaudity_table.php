@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateInventarisTable extends Migration
+class CreateLogaudityTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,16 +13,15 @@ class CreateInventarisTable extends Migration
      */
     public function up()
     {
-        Schema::create('inventaris', function (Blueprint $table) {
+        Schema::create('logaudity', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('users_id')->nullable();
+            $table->foreign('users_id')->references('id')->on('users');
             $table->unsignedBigInteger('label_id')->nullable();
             $table->foreign('label_id')->references('id')->on('label');
             $table->unsignedBigInteger('barang_id')->nullable();
             $table->foreign('barang_id')->references('id')->on('barang');
-            $table->integer('stock');
-            $table->integer('stocklama');
-            $table->integer('stockbaru');
-            $table->string('status');
+            $table->integer('harga');
             $table->timestamps();
         });
     }
@@ -34,6 +33,6 @@ class CreateInventarisTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('inventaris');
+        Schema::dropIfExists('logaudity');
     }
 }

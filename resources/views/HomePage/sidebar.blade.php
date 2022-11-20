@@ -49,16 +49,29 @@
                 <p>Data Pegawai</p>
               </a>
             </li>
+          </ul>
+        </li>
+      </ul>
+      <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+        <li class="nav-item">
+          <a href="" class="nav-link">
+            <i class="far fa-circle nav-icon"></i>
+            <p>
+              TRANSAKSI
+              <i class="right fas fa-angle-left"></i>
+            </p>
+          </a>
+          <ul class="nav nav-treeview">
             <li class="nav-item">
               <a href="/inventaris" class="nav-link">
-                <i class="fas fa-users nav-icon"></i>
-                <p>Barang Masuk </p>
+                <i class="fas fa-award nav-icon"></i>
+                <p>Barang Masuk</p>
               </a>
             </li>
             <li class="nav-item">
               <a href="/barangkeluar" class="nav-link">
-                <i class="fas fa-users nav-icon"></i>
-                <p>Barang Keluar </p>
+                <i class="fas fa-award nav-icon"></i>
+                <p>Barang Keluar</p>
               </a>
             </li>
           </ul>

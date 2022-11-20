@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Barang;
 use App\Models\Label;
+use App\Models\Inventaris;
+use Illuminate\Support\Facades\Auth;
+use App\Models\LogAudity;
 use Illuminate\Support\Facades\DB;
 
 class BarangController extends Controller
@@ -36,7 +39,6 @@ class BarangController extends Controller
     {
         $request->validate([
             'nama_barang' => 'required',
-            'nama_label' => 'required',
 
         ]);
 
@@ -46,10 +48,11 @@ class BarangController extends Controller
         $barang = new Barang;
         $barang->nama_barang = $request->get('nama_barang');
         $barang->featured_image = $image_name;
-        $idlabel = $request->get('nama_label');
-        $label = Label::find($idlabel);
-        $barang->label()->associate($label);
+            $idlabel = $request->get('nama_label');
+            $label = Label::find($idlabel);
+            $barang->label()->associate($label);
         $barang->save();
+
         return redirect()->route('barang.index')
             ->with('success', 'Barang Berhasil Ditambahkan');
     }
@@ -62,7 +65,7 @@ class BarangController extends Controller
      */
     public function show($id)
     {
-        $barang = DB::table('barang')->where('id', $id)->first();;
+        $barang = Barang::with('label')->where('id', $id)->first();
         return view('BarangPage.detail', ['barang' => $barang]);
     }
 
@@ -88,20 +91,35 @@ class BarangController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'nama_barang' => 'required',
-            'nama_label' => 'required',
-        ]);
 
-        if ($request->file('image')) {
+        if ($request->file('image')!=null) {
             $image_name = $request->file('image')->store('images', 'public');
+            $barang = Barang::with('label')->where('id', $id)->first();
+            $log=new LogAudity;
+            $barang->nama_barang = $request->get('nama_barang');
+            $barang->featured_image = $image_name;
+            $log->users_id=Auth::user()->id();
+            $log->barang_id=$barang->id;
+            $log->label_id=$barang->label_id;
+            $log->harga=$barang->harga;
+            $barang->harga=$request->get('harga');
+            $log->hargabaru=$request->get('harga');
+            $barang->save();
+            $log->save();
+        }else{
+            $barang = Barang::with('label')->where('id', $id)->first();
+            $log=new LogAudity;
+            $barang->nama_barang = $request->get('nama_barang');
+            $log->users_id=auth()->user()->id;
+            $log->barang_id=$barang->id;
+            $log->label_id=$barang->label_id;
+            $log->harga=$barang->harga;
+            $barang->harga=$request->get('harga');
+            $log->hargabaru=$request->get('harga');
+            $barang->save();
+            $log->save();
         }
-        $barang = Barang::with('label')->where('id', $id)->first();
-        $barang->nama_barang = $request->get('nama_barang');
-        $barang->featured_image = $image_name;
-        $label = Label::find($request->get('nama_label'));
-        $barang->label()->associate($label);
-        $barang->save();
+
         return redirect()->route('barang.index')
             ->with('success', 'Barang Berhasil Ditambahkan');
     }

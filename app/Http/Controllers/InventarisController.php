@@ -7,6 +7,7 @@ use App\Models\Inventaris;
 use App\Models\Barang;
 use PDF;
 use App\Models\Label;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class InventarisController extends Controller
@@ -18,14 +19,14 @@ class InventarisController extends Controller
      */
     public function index()
     {
-        $inventaris = Inventaris::with('label','barang')->get();
-        $paginate = Inventaris::orderBy('id', 'asc')->paginate(5);
+        $inventaris = Inventaris::with('label','barang')->where('status',"Barang Masuk")->get();
+        $paginate = Inventaris::orderBy('id', 'asc')->where('status',"Barang Masuk")->paginate(5);
         return view('InventarisPage.barangmasuk.inventaris', ['paginate' => $paginate]);
     }
     public function index2()
     {
-        $inventaris = Inventaris::with('label','barang')->get();
-        $paginate = Inventaris::orderBy('id', 'asc')->paginate(5);
+        $inventaris = Inventaris::with('label','barang')->where('status',"Barang Keluar")->get();
+        $paginate = Inventaris::orderBy('id', 'asc')->where('status',"Barang Keluar")->paginate(5);
         return view('InventarisPage.barangkeluar.inventaris', ['paginate' => $paginate]);
     }
 
@@ -34,17 +35,16 @@ class InventarisController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($id,$labelid)
     {
-        $label = Label::all();
-        $barang = Barang::all();
-        return view('InventarisPage.barangmasuk.create', ['label' => $label,'barang'=>$barang]);
+        $barang = Barang::with('label')->where('id', $id)->where('label_id',$labelid)->first();
+        return view('InventarisPage.barangmasuk.create', ['barang'=>$barang]);
     }
-    public function create2()
+    public function create2($id,$labelid)
     {
-        $label = Label::all();
-        $barang = Barang::all();
-        return view('InventarisPage.barangkeluar.create', ['label' => $label,'barang'=>$barang]);
+        // $label = Label::all();
+        $barang = Barang::with('label')->where('id', $id)->where('label_id',$labelid)->first();
+        return view('InventarisPage.barangkeluar.create', ['barang'=>$barang]);
     }
 
     /**
@@ -59,29 +59,31 @@ class InventarisController extends Controller
         $request->validate([
             'nama_barang' => 'required',
             'nama_label' => 'required',
-
+            'stock' => 'required',
+            
         ]);
-        $idlabel = $request->get('nama_label');
-        $idbarang = $request->get('nama_barang');
-        if(DB::table('barang')->where('id',$idbarang)->where('label_id',$idlabel)->exists()){
+            $idbarang = $request->get('id');
+        // if(DB::table('barang')->where('id',$idbarang)->where('label_id',$idlabel)->exists()){
             $inventaris = new Inventaris;
-            $label=Label::find($idlabel);
             $barang=Barang::find($idbarang);
+            $label=Label::find($barang->label_id);
             $inventaris->label()->associate($label);
             $inventaris->barang()->associate($barang);
             $inventaris->stock=$request->get('stock');
+            $barang = Barang::with('label')->where('id', $idbarang)->where('label_id',$barang->label_id)->first();
             $inventaris->status="Barang Keluar";
-            $barang = Barang::with('label')->where('id', $idbarang)->where('label_id',$idlabel)->first();
+            $inventaris->stocklama=$barang->stock;
             $barang->stock =$barang->stock - $request->get('stock');
+            $inventaris->stockbaru=$barang->stock;
             $inventaris->save();
             $barang->save();
-            return redirect()->route('inventaris.index')
+            return redirect()->route('inventaris.index2')
             ->with('success', 'Barang Berhasil Dikeluarkan');
 
-        }else{
-            return redirect()->route('inventaris.barangmasuk.index')
-            ->with('error', 'Barang tidak ada');
-        }
+        // }else{
+        //     return redirect()->route('inventaris.index2')
+        //     ->with('error', 'Barang tidak ada');
+        // }
     }
     public function store(Request $request)
     {
@@ -89,6 +91,7 @@ class InventarisController extends Controller
         $request->validate([
             'nama_barang' => 'required',
             'nama_label' => 'required',
+            'stock' => 'required',
 
         ]);
         $idlabel = $request->get('nama_label');
@@ -102,14 +105,16 @@ class InventarisController extends Controller
             $inventaris->stock=$request->get('stock');
             $inventaris->status="Barang Masuk";
             $barang = Barang::with('label')->where('id', $idbarang)->where('label_id',$idlabel)->first();
+            $inventaris->stocklama=$barang->stock;
             $barang->stock =$barang->stock + $request->get('stock');
+            $inventaris->stockbaru=$barang->stock;
             $inventaris->save();
             $barang->save();
             return redirect()->route('inventaris.index')
             ->with('success', 'Barang Berhasil Ditambahkan');
 
         }else{
-            return redirect()->route('inventaris.barangmasuk.index')
+            return redirect()->route('inventaris.index')
             ->with('error', 'Barang tidak ada');
         }
     }
@@ -162,15 +167,13 @@ class InventarisController extends Controller
     }
     public function cetakkeluar(){
         $paginate = Inventaris::with('label','barang')->where('status',"Barang Keluar")->get();
-        $angka=1;
-        $pdf = PDF::loadview('InventarisPage.barangkeluar.cetak', compact('paginate','angka'));
+        $pdf = PDF::loadview('InventarisPage.barangkeluar.cetak', compact('paginate'));
         $pdf->setPaper('F4', 'landscape');
         return $pdf->stream();
     }
     public function cetakmasuk(){
         $paginate = Inventaris::with('label','barang')->where('status',"Barang Masuk")->get();
-        $angka=1;
-        $pdf = PDF::loadview('InventarisPage.barangmasuk.cetak', compact('paginate','angka'));
+        $pdf = PDF::loadview('InventarisPage.barangmasuk.cetak', compact('paginate'));
         $pdf->setPaper('F4', 'landscape');
         return $pdf->stream();
     }

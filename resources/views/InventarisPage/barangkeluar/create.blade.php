@@ -9,26 +9,22 @@
 
                 <div class="card card-primary">
                     <div class="card-header">
-                        <h3 class="card-title">Inventaris</h3>
+                        <h3 class="card-title">Masukkan Data Barang Yang Akan Dikeluarkan</h3>
                     </div>
 
                     <form method="post" action="{{ route('inventaris.store2') }}" enctype="multipart/form-data" class="p-3">
                         @csrf
                         <div class="form-group">
-                            <label for="nama_barang">Barang</label>
-                            <select class="form-control" name="nama_barang">
-                                @foreach($barang as $mrk)
-                                <option value="{{ $mrk ->id }}">{{$mrk->nama_barang}}</option>
-                                @endforeach
-                            </select>
+                            <label for="id">Id Barang</label>
+                            <input type="text" name="id" class="form-control" id="id" value="{{ $barang->id }}" readonly='readonly' aria-describedby="nama_barang">
                         </div>
                         <div class="form-group">
-                            <label for="nama_label">Label</label>
-                            <select class="form-control" name="nama_label">
-                                @foreach($label as $lbl)
-                                <option value="{{ $lbl ->id }}">{{$lbl->nama_label}}</option>
-                                @endforeach
-                            </select>
+                            <label for="nama_barang">Nama Barang</label>
+                            <input type="text" name="nama_barang" class="form-control" id="nama_barang" value="{{ $barang->nama_barang }}" readonly='readonly' aria-describedby="nama_barang">
+                        </div>
+                        <div class="form-group">
+                            <label for="nama_label">Nama Label</label>
+                            <input type="text" name="nama_label" class="form-control" id="nama_label" value="{{ $barang->label->nama_label}}" readonly='readonly' aria-describedby="nama_barang">
                         </div>
                         <div class="form-group">
                             <label for="stock">Masukkan Stok</label>

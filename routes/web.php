@@ -51,7 +51,8 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('pegawai', PegawaiController::class);
         Route::resource('inventaris', InventarisController::class);
         Route::get('/barangkeluar', [InventarisController::class,'index2'])->name('inventaris.index2');
-        Route::get('/inputbarangkeluar', [InventarisController::class,'create2'])->name('inventaris.create2');
+        Route::get('/inputbarangkeluar/{id}/{labelid}', [InventarisController::class,'create2'])->name('inventaris.create2');
+        Route::get('/inputbarangmasuk/{id}/{labelid}', [InventarisController::class,'create']);
         Route::post('/barangkeluarstore', [InventarisController::class,'store2'])->name('inventaris.store2');
         Route::get('/cetakbarangmasuk', [InventarisController::class,'cetakmasuk'])->name('inventaris.cetakmasuk');
         Route::get('/cetakbarangkeluar', [InventarisController::class,'cetakkeluar'])->name('inventaris.cetakkeluar');
