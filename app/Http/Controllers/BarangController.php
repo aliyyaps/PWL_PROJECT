@@ -104,7 +104,8 @@ class BarangController extends Controller
             $log->barang_id=$barang->id;
             $log->label_id=$barang->label_id;
             $log->harga=$barang->harga;
-            $log->namaorang=Auth::user()->name();
+            $namaorang=DB::table('users')->where('id',Auth::user()->id)->first();
+            $log->namaorang=$namaorang->name;
             $barang->harga=$request->get('harga');
             $log->hargabaru=$request->get('harga');
             $barang->save();
