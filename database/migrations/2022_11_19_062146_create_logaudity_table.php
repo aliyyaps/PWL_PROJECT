@@ -22,6 +22,8 @@ class CreateLogaudityTable extends Migration
             $table->unsignedBigInteger('barang_id')->nullable();
             $table->foreign('barang_id')->references('id')->on('barang');
             $table->integer('harga');
+            $table->integer('hargabaru');
+            $table->string('namaorang');
             $table->timestamps();
         });
     }

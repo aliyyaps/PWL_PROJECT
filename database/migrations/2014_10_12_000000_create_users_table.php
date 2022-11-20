@@ -19,7 +19,7 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->enum('level',['admin','pengguna'])->default('admin');
+            $table->enum('level',['admin','pengguna'])->default('pengguna');
             $table->string('foto')->nullable();
             $table->string('nohp')->nullable();
             $table->rememberToken();

@@ -71,7 +71,6 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('pengguna', PenggunaController::class);
         Route::resource('sewa', SewaController::class);
         Route::resource('pengembalian', PengembalianController::class);
-        Route::resource('barang', BarangController::class);
         Route::get('/sewa/pay/{id}', [SewaController::class, 'payment'])->name('sewa.payment');
         Route::put('/sewa/pay/{id}', [SewaController::class, 'pay'])->name('sewa.pay');
     });
