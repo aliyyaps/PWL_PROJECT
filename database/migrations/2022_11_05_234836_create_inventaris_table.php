@@ -16,9 +16,9 @@ class CreateInventarisTable extends Migration
         Schema::create('inventaris', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('label_id')->nullable();
-            $table->foreign('label_id')->references('id')->on('label');
+            $table->foreign('label_id')->references('id')->on('label')->onDelete('cascade');;
             $table->unsignedBigInteger('barang_id')->nullable();
-            $table->foreign('barang_id')->references('id')->on('barang');
+            $table->foreign('barang_id')->references('id')->on('barang')->onDelete('cascade');;
             $table->integer('stock');
             $table->integer('stocklama');
             $table->integer('stockbaru');

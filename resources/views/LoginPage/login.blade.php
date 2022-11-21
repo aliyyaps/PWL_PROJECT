@@ -19,6 +19,19 @@
         </div>
 
         @endif
+        <div class="card">
+    {{-- <div class="card-body register-card-body">
+      @if ($errors->any())
+            <div class="alert alert-info" role="alert">
+              <strong>Whoops!</strong> <br><br>
+                <ul>
+                  @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                  @endforeach
+                </ul>
+          </div>
+      @endif
+</div> --}}
         <p class="login-box-msg">Masuk Untuk Melanjutkan</p>
 
         <form action="{{ url('/LoginPost') }}" method="post">

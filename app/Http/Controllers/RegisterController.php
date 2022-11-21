@@ -20,10 +20,11 @@ class RegisterController extends Controller
          //melakukan validasi data
         $request->validate([
         'name' => 'required',
-        'email' => 'required|unique:users',
+        'email' => 'required|string|email|max:255|unique:users',
         'password' => 'required',
     ],[
         'email.unique' => 'Email Sudah Digunakan.',
+        'email.exists' => 'The email is not registered in the system.'
     ]);
         $user = new User;
         $user->name = $request->get('name');

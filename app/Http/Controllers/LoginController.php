@@ -20,7 +20,6 @@ class LoginController extends Controller
                 'password' => 'required',
             ]
         );
-
         if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
             $level = Auth::user()->level;
             if ($level == "admin") {
@@ -30,8 +29,10 @@ class LoginController extends Controller
             } else {
                 return redirect()->to('/');
             }
+        }else{
+            return back()->with('loginError','Login Error');
         }
-        return back();
+       
     }
     public function logout(Request $request)
     {

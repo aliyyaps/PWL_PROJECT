@@ -27,9 +27,9 @@
                                 <th>Stock Barang Sebelumnya</th>
                                 <th>Stock Barang Setelahnya</th>
                                 <th>Tanggal Barang Dikeluarkan</th>
-                                @if(auth()->user()->level == 'admin')
+                                {{-- @if(auth()->user()->level == 'admin')
                                 <th width="280px">Action</th>
-                                @endif
+                                @endif --}}
                             </tr>
                             @foreach ($paginate as $m)
                             @if($m->status=="Barang Keluar")
@@ -42,15 +42,15 @@
                                 <td>{{ $m -> stockbaru }}</td>
                                 <td>{{ $m -> created_at }}</td>
                                 @if(auth()->user()->level == 'admin')
-                                <td>
+                                {{-- <td>
                                     <form action="{{ route('inventaris.destroy',$m->id) }}" method="POST">
                                         {{-- <a class="btn btn-info" href="{{ route('inventaris.show', $m->id) }}">Show</a>
                                         <a class="btn btn-primary" href="{{ route('inventaris.edit', $m->id) }}">Edit</a> --}}
-                                        @csrf
+                                        {{-- @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="btn btn-danger">Delete</button>
-                                    </form>
-                                </td>
+                                        <button type="submit" class="btn btn-danger">Delete</button> --}}
+                                    {{-- </form> --}}
+                                {{-- </td> --}}
                                 @endif
                                 @endif
                             </tr>

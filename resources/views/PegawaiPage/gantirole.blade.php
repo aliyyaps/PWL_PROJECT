@@ -7,7 +7,7 @@
             <div class="col-12 mt-4">
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-title">Data Pegawai</h3>
+                        <h3 class="card-title">Data Akun</h3>
                     </div>
 
                     <div class="card-body">

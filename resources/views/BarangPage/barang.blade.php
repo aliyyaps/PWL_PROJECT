@@ -38,15 +38,21 @@
                                 @if(auth()->user()->level == 'admin')
                                 <td>
                                         <a class="btn btn-info" href="{{ route('barang.show', $m->id) }}">Detail Barang</a>
-                                        <a class="btn btn-primary" href="{{ route('barang.edit', $m->id) }}">Edit</a>
-                                        <br>
-                                        <a class="btn btn-success" href="{{url('inputbarangmasuk/'.$m->id.'/'.$m->label_id)}}">tambah stock</a>
-                                        <a class="btn btn-success" href="{{url('inputbarangkeluar/'.$m->id.'/'.$m->label_id)}}">stock keluar</a>
+                                        <a class="btn btn-primary" href="{{ route('barang.edit', $m->id) }}">Edit Harga</a>
+                                        <br><br>
+                                        <a class="btn btn-success" href="{{url('inputbarangmasuk/'.$m->id.'/'.$m->label_id)}}">Tambah Stock</a>
+                                        <a class="btn btn-success" href="{{url('inputbarangkeluar/'.$m->id.'/'.$m->label_id)}}">Stock Keluar</a>
                                         @csrf
                                         @method('DELETE')
                                        
                                    
                                 </td>
+                                @else
+                                <td>
+                                    <a class="btn btn-success" href="{{ route('transaksi.edit', $m->id) }}">Beli</a>
+                                </td>
+                               
+                                
                                 @endif
                             </tr>
                             @endforeach

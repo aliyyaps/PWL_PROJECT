@@ -27,9 +27,9 @@
                                 <th>Stock Lama</th>
                                 <th>Stock Baru</th>
                                 <th>Tanggal Barang Dimasukkan</th>
-                                @if(auth()->user()->level == 'admin')
+                                {{-- @if(auth()->user()->level == 'admin')
                                 <th width="280px">Action</th>
-                                @endif
+                                @endif --}}
                             </tr>
                             @foreach ($paginate as $m)
                             <tr>
@@ -40,7 +40,7 @@
                                 <td>{{ $m -> stocklama }}</td>
                                 <td>{{ $m -> stockbaru }}</td>
                                 <td>{{ $m -> created_at }}</td>
-                                @if(auth()->user()->level == 'admin')
+                                {{-- @if(auth()->user()->level == 'admin')
                                 <td>
                                     <form action="{{ route('inventaris.destroy',$m->id) }}" method="POST">
                                         @csrf
@@ -48,7 +48,7 @@
                                         <button type="submit" class="btn btn-danger">Delete</button>
                                     </form>
                                 </td>
-                                @endif
+                                @endif --}}
                             </tr>
                             @endforeach
                         </table>

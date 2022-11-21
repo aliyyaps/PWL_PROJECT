@@ -13,6 +13,7 @@ use App\Http\Controllers\LabelController;
 use App\Http\Controllers\BarangController;
 use App\Http\Controllers\PegawaiController;
 use App\Http\Controllers\SewaController;
+use App\Http\Controllers\TransaksiController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\Sewa2Controller;
 use App\Http\Controllers\PengembalianController;
@@ -37,6 +38,9 @@ Route::post('/LoginPost', [LoginController::class, 'login']);
 Route::get('/', function () {
     return view('index');
 });
+Route::get('/about', function () {
+    return view('about');
+});
 Route::get('/register', [RegisterController::class, 'index']);
 
 Route::post('/RegisterPost', [RegisterController::class, 'store']);
@@ -56,6 +60,8 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/inputbarangkeluar/{id}/{labelid}', [InventarisController::class,'create2'])->name('inventaris.create2');
         Route::get('/inputbarangmasuk/{id}/{labelid}', [InventarisController::class,'create']);
         Route::get('/gantirole', [AdminController::class,'gantirole'])->name('admin.gantirole');
+        Route::get('/pemesananmasuk', [TransaksiController::class,'pesanan'])->name('transaksi.pesanan');
+        Route::get('/perubahan/{id}', [TransaksiController::class,'update2'])->name('transaksi.update2');
         Route::post('/updaterole/{id}', [AdminController::class,'updaterole'])->name('admin.updaterole');
         Route::get('/editrole/{id}', [AdminController::class,'editrole'])->name('admin.editrole');
         Route::post('/barangkeluarstore', [InventarisController::class,'store2'])->name('inventaris.store2');
@@ -69,6 +75,8 @@ Route::middleware(['auth'])->group(function () {
 
     Route::middleware(['pengguna'])->group(function () {
         Route::resource('pengguna', PenggunaController::class);
+        Route::resource('transaksi', TransaksiController::class);
+        Route::get('/pemesanan', [TransaksiController::class,'pesanan2'])->name('transaksi.pesanan2');
         Route::resource('sewa', SewaController::class);
         Route::resource('pengembalian', PengembalianController::class);
         Route::get('/sewa/pay/{id}', [SewaController::class, 'payment'])->name('sewa.payment');

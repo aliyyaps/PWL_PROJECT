@@ -16,12 +16,15 @@ class CreateTransaksiTable extends Migration
         Schema::create('transaksi', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('users_id')->nullable();
-            $table->foreign('users_id')->references('id')->on('users');
+            $table->foreign('users_id')->references('id')->on('users')->onDelete('cascade');;
             $table->unsignedBigInteger('label_id')->nullable();
-            $table->foreign('label_id')->references('id')->on('label');
+            $table->foreign('label_id')->references('id')->on('label')->onDelete('cascade');;
             $table->unsignedBigInteger('barang_id')->nullable();
-            $table->foreign('barang_id')->references('id')->on('barang');
-            
+            $table->foreign('barang_id')->references('id')->on('barang')->onDelete('cascade');;
+            $table->string('status')->default('proses');
+            $table->integer('harga');
+            $table->integer('jumlah');
+            $table->string('namaorang');
             $table->timestamps();
         });
     }

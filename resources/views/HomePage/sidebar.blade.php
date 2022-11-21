@@ -80,6 +80,12 @@
                 <p>Barang Keluar</p>
               </a>
             </li>
+            <li class="nav-item">
+              <a href="/pemesananmasuk" class="nav-link">
+                <i class="fas fa-award nav-icon"></i>
+                <p>Pesanan Masuk</p>
+              </a>
+            </li>
           </ul>
         </li>
       </ul>
@@ -93,7 +99,7 @@
         <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
         <li class="nav-item">
-          <a href="/barang" class="nav-link">
+          <a href="/transaksi" class="nav-link">
             <i class="fas fa-car nav-icon"></i>
             <p>Data Barang</p>
           </a>
@@ -108,14 +114,14 @@
           </a>
           <ul class="nav nav-treeview">
             <li class="nav-item">
-              <a href="/sewa" class="nav-link">
+              <a href="/pemesanan" class="nav-link">
                 <i class="fas fa-receipt nav-icon"></i>
-                <p>Pemesanan</p>
+                <p>Pesanan</p>
               </a>
-              <a href="/pengembalian" class="nav-link">
+              {{-- <a href="/pengembalian" class="nav-link">
                 <i class="fas fa-receipt nav-icon"></i>
                 <p>Pengembalian</p>
-              </a>
+              </a> --}}
             </li>
           </ul>
     </nav>

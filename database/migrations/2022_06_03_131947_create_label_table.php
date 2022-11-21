@@ -15,7 +15,7 @@ class CreateLabelTable extends Migration
     {
         Schema::create('label', function (Blueprint $table) {
             $table->id();
-            $table->string('nama_label', 100);
+            $table->string('nama_label', 100)->unique();
             $table->string('deskripsi')->nullable();
             $table->timestamps();
         });
