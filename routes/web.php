@@ -76,7 +76,10 @@ Route::middleware(['auth'])->group(function () {
     Route::middleware(['pengguna'])->group(function () {
         Route::resource('pengguna', PenggunaController::class);
         Route::resource('transaksi', TransaksiController::class);
+        Route::get('/buktibayar/{id}', [TransaksiController::class,'buktibayar'])->name('transaksi.buktibayar');
+        Route::get('/cetakresi/{id}', [TransaksiController::class,'cetakresi'])->name('transaksi.cetakresi');
         Route::get('/pemesanan', [TransaksiController::class,'pesanan2'])->name('transaksi.pesanan2');
+        Route::post('/perubahan/{id}', [TransaksiController::class,'update3'])->name('transaksi.update3');
         Route::resource('sewa', SewaController::class);
         Route::resource('pengembalian', PengembalianController::class);
         Route::get('/sewa/pay/{id}', [SewaController::class, 'payment'])->name('sewa.payment');

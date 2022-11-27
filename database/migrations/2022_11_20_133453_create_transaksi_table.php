@@ -24,7 +24,11 @@ class CreateTransaksiTable extends Migration
             $table->string('status')->default('proses');
             $table->integer('harga');
             $table->integer('jumlah');
+            $table->integer('berat');
+            $table->string('satuan');
             $table->string('namaorang');
+            $table->string('bukti')->default('Belum Ada Bukti');
+            $table->integer('total')->default(0);
             $table->timestamps();
         });
     }

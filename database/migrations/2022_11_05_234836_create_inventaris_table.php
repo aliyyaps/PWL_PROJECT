@@ -22,6 +22,8 @@ class CreateInventarisTable extends Migration
             $table->integer('stock');
             $table->integer('stocklama');
             $table->integer('stockbaru');
+            $table->integer('berat')->default(0);
+            $table->string('satuan');
             $table->string('status');
             $table->timestamps();
         });

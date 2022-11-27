@@ -8,7 +8,9 @@
                 <div class="card">
                     <div class="card-header">
                         <h3 class="card-title">List Data Barang</h3>
+                        {{-- <a class="btn btn-warning float-end" href="{{ route('cetak') }}"> Cetak Ke PDF</a> --}}
                     </div>
+                   
                     <div class="card-body">
                         <table id="example2" class="table table-bordered table-hover">
                             <tr>
@@ -20,6 +22,8 @@
                                 @endif
                                 <th>Stok <br> Saat Ini</th>
                                 <th>Harga <br> Saat Ini</th>
+                                <th>Berat <br> Barang</th>
+
                                 @if(auth()->user()->level == 'admin')
                                 <th width="280px">Action</th>
                                 @endif
@@ -35,6 +39,8 @@
                                 @endif
                                 <td>{{ $m -> stock }}</td>
                                 <td>{{ $m -> harga }}</td>
+                                <td>{{ $m -> berat.$m -> satuan }}</td>
+                                
                                 @if(auth()->user()->level == 'admin')
                                 <td>
                                         <a class="btn btn-info" href="{{ route('barang.show', $m->id) }}">Detail Barang</a>

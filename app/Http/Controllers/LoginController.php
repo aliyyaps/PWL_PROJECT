@@ -14,13 +14,12 @@ class LoginController extends Controller
     }
     public function login(Request $request)
     {
-        request()->validate(
-            [
-                'email' => 'required',
-                'password' => 'required',
-            ]
-        );
-        if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
+        $credentials = $request -> validate([
+            'email' => 'required',
+            'password' => 'required'
+        ]);
+        if (Auth::attempt($credentials)) {
+            $request->session()->regenerate();
             $level = Auth::user()->level;
             if ($level == "admin") {
                 return redirect()->to('admin');
@@ -36,8 +35,9 @@ class LoginController extends Controller
     }
     public function logout(Request $request)
     {
-        $request->session()->flush();
         Auth::logout();
-        return redirect('/login');
+        $request->session()->invalidate();
+        $request->session()->regenerate();
+        return redirect('/');
     }
 }

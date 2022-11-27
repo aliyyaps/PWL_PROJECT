@@ -36,12 +36,16 @@
                         <input type="hidden" name="label_id" class="form-control" id="label_id" value="{{ $barang->label_id}}" readonly='readonly' aria-describedby="label_id">
                     </div>
                     <div class="form-group">
+                        <label for="berat">Berat Barang</label>
+                        <input type="number" name="berat" class="form-control" id="berat" value="{{ $barang->berat}}" readonly='readonly' aria-describedby="berat">
+                    </div>
+                    <div class="form-group">
                         <label for="harga">Harga Barang</label>
-                        <input type="text" name="harga" class="form-control" id="harga" value="{{ $barang->harga}}" readonly='readonly' aria-describedby="harga">
+                        <input type="number" name="harga" class="form-control" id="harga" value="{{ $barang->harga}}" readonly='readonly' aria-describedby="harga">
                     </div>
                     <div class="form-group">
                         <label for="jumlah">Jumlah Barang</label>
-                        <input type="text" name="jumlah" class="form-control" id="jumlah" value="0" aria-describedby="jumlah">
+                        <input type="number" name="jumlah" class="form-control" id="jumlah" value="0" aria-describedby="jumlah">
                     </div>
                     {{-- <div class="form-group">
                         <label for="nama_label">Nama Label</label>

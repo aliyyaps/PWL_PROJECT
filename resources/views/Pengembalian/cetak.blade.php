@@ -15,9 +15,9 @@
 <body>
     <div class="container-fluid m-0">
         <div class="card-header border-bottom border-3 border-dark mb-2 pb-4">
-            <h3 class="card-title text-center mb-1"><b>RENTAL MOBIL FIND YOUR CAR</b></h3>
-            <p class="text-center my-0">Jl. Ketapang 21, Malang, Jawa Timur</p>
-            <p class="text-center my-0">08129871231|rentcar@gmail.com</p>
+            <h3 class="card-title text-center mb-1"><b>LAPORAN TRANSAKSI</b></h3>
+            <p class="text-center my-0">Jl. Suhat, Malang, Jawa Timur</p>
+            <p class="text-center my-0">08129871231|barang@gmail.com</p>
         </div>
 
         <div class="card-body">

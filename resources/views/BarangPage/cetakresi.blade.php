@@ -15,38 +15,26 @@
 <body>
     <div class="container-fluid m-0">
         <div class="card-header border-bottom border-3 border-dark mb-2 pb-4">
-            <h3 class="card-title text-center mb-1"><b>Laporan Barang Masuk</b></h3>
+            <h3 class="card-title text-center mb-1"><b>Laporan Barang Keluar</b></h3>
             <p class="text-center my-0">Jl. Suhat , Malang, Jawa Timur</p>
             <p class="text-center my-0">08129871231|barangjualan@gmail.com</p>
         </div>
 
-        <div class="card-body">
             {{-- <h5><b>Laporan Data Penyewaan</b></h5> --}}
-            <table class="table table-bordered table-hover">
-                <tr class="table-danger">
-                    <th>Nama Barang</th>
-                    <th>Label</th>
-                    <th>Berat Barang</th>
-                    <th>User Pemesan</th>
-                    <th>Jumlah Dibeli</th>
-                    <th>Harga Saat ini</th>
-                    <th>Status Pesanan</th>
-                    
-                </tr>
-                @foreach ($paginate as $cetak)
-                <tr>
-                    <td>{{ $cetak -> barang -> nama_barang }}</td>
-                    <td>{{ $cetak -> label -> nama_label}}</td>
-                    <td>{{ $cetak -> berat.$cetak->satuan }}</td>
-                    <td>{{ $cetak -> user -> id }}</td>
-                    <td>{{ $cetak -> jumlah }}</td>
-                    <td>{{ $cetak -> harga }}</td>
-                    <td>{{ $cetak -> status }}</td>
-                    {{-- <td>{{ $cetak -> created_at }}</td> --}}
-                </tr>
-                @endforeach
-            </table>
-        </div>
+            <center>
+                Nama Barang <br>
+                {{ $paginate -> barang ->nama_barang }}<br>
+                Label<br>
+                {{ $paginate -> label -> nama_label }}<br>
+                Berat Barang<br>
+                {{ $paginate -> berat.$paginate->satuan }}<br>
+                Jumlah yang dibeli<br>
+                {{ $paginate -> jumlah }}<br>
+                Tanggal keluar<br>
+              
+                {{ $paginate -> created_at }}
+            </center>
+
     </div>
 </body>
 

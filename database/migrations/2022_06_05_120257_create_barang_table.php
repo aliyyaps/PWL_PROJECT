@@ -19,6 +19,8 @@ class CreateBarangTable extends Migration
             $table->string('featured_image');
             $table->integer('stock')->default(0);
             $table->integer('harga')->default(0);
+            $table->integer('berat')->default(0);
+            $table->string('satuan');
             $table->unsignedBigInteger('label_id')->nullable();
             $table->foreign('label_id')->references('id')->on('label')->onDelete('cascade');
             $table->timestamps();

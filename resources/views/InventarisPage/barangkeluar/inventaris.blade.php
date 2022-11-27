@@ -23,6 +23,7 @@
                             <tr>
                                 <th>Nama Barang</th>
                                 <th>Label</th>
+                                <th>Berat Barang</th>
                                 <th>Jumlah Barang Keluar</th>
                                 <th>Stock Barang Sebelumnya</th>
                                 <th>Stock Barang Setelahnya</th>
@@ -37,6 +38,7 @@
                                
                                 <td>{{ $m -> barang -> nama_barang }}</td>
                                 <td>{{ $m -> label -> nama_label }}</td>
+                                <td>{{ $m -> berat.$m->satuan }}</td>
                                 <td>{{ $m -> stock }}</td>
                                 <td>{{ $m -> stocklama }}</td>
                                 <td>{{ $m -> stockbaru }}</td>

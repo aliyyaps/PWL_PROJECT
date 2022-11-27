@@ -26,14 +26,18 @@
                 <tr class="table-danger">
                     <th>Nama Barang</th>
                     <th>Label</th>
+                    <th>Berat Barang</th>
                     <th>Stock Keluar</th>
+                    <th>Stock Sebelum <br>Keluar</th>
                     <th>Tanggal keluar</th>
                 </tr>
                 @foreach ($paginate as $cetak)
                 <tr>
                     <td>{{ $cetak -> barang -> nama_barang }}</td>
                     <td>{{ $cetak -> label -> nama_label}}</td>
+                    <td>{{ $cetak -> berat.$cetak->satuan }}</td>
                     <td>{{ $cetak -> stock }}</td>
+                    <td>{{ $cetak -> stocklama }}</td>
                     <td>{{ $cetak -> created_at }}</td>
                 </tr>
                 @endforeach

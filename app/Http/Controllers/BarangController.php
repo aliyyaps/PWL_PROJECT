@@ -41,13 +41,15 @@ class BarangController extends Controller
         $request->validate([
             'nama_barang' => 'required',
 
-        ]);
+        ],);
 
         if ($request->file('image')) {
             $image_name = $request->file('image')->store('images', 'public');
         }
         $barang = new Barang;
         $barang->nama_barang = $request->get('nama_barang');
+        $barang->berat = $request->get('berat');
+        $barang->satuan = $request->get('satuan');
         $barang->featured_image = $image_name;
             $idlabel = $request->get('nama_label');
             $label = Label::find($idlabel);
@@ -100,7 +102,7 @@ class BarangController extends Controller
             $log=new LogAudity;
             $barang->nama_barang = $request->get('nama_barang');
             $barang->featured_image = $image_name;
-            $log->users_id=Auth::user()->id();
+            $log->users_id=auth()->user()->id;
             $log->barang_id=$barang->id;
             $log->label_id=$barang->label_id;
             $log->harga=$barang->harga;

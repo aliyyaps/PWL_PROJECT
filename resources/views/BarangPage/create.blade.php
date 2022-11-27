@@ -30,7 +30,22 @@
                             <label for="image">Gambar Barang</label>
                             <input type="file" class="form-control" required="required" name="image">
                         </div>
-
+                        <div class="form-group">
+                            <label for="berat">Berat Barang</label>
+                            <input type="number" name="berat" class="form-control" id="berat" aria-describedby="berat" required="required">
+                        </div>
+                        <div class="form-group">
+                            <label for="satuan">Satuan Berat</label>
+                            <select class="form-control" name="satuan" required="required">
+                                <option value="Kg">Kg</option>
+                                <option value="Hg">Hg</option>
+                                <option value="Dag">Dag</option>
+                                <option value="Gram">Gram</option>
+                                <option value="Dg">Dg</option>
+                                <option value="Cg">Cg</option>
+                                <option value="Mg">Mg</option>
+                            </select>
+                        </div>
                         <div class="card-footer">
                             <button type="submit" class="btn btn-primary">Submit</button>
                         </div>

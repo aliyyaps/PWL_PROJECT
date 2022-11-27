@@ -73,6 +73,8 @@ class InventarisController extends Controller
             $inventaris->stock=$request->get('stock');
             $barang = Barang::with('label')->where('id', $idbarang)->where('label_id',$barang->label_id)->first();
             $inventaris->status="Barang Keluar";
+            $inventaris->berat = $barang->berat;
+            $inventaris->satuan = $barang->satuan;
             $inventaris->stocklama=$barang->stock;
             $barang->stock =$barang->stock - $request->get('stock');
             $inventaris->stockbaru=$barang->stock;
@@ -105,6 +107,8 @@ class InventarisController extends Controller
             $inventaris->stock=$request->get('stock');
             $inventaris->status="Barang Masuk";
             $barang = Barang::with('label')->where('id', $idbarang)->where('label_id',$barang->label_id)->first();
+            $inventaris->berat = $barang->berat;
+            $inventaris->satuan = $barang->satuan;
             $inventaris->stocklama=$barang->stock;
             $barang->stock =$barang->stock + $request->get('stock');
             $inventaris->stockbaru=$barang->stock;

@@ -27,7 +27,7 @@ class TransaksiController extends Controller
     public function pesanan()
     {
         $transaksi = Transaksi::with('label','barang','user')->get();
-        $paginate = Transaksi::orderBy('id', 'asc')->paginate(5);
+        $paginate = Transaksi::orderBy('id', 'desc')->paginate(5);
         return view('BarangPage.pesanan', ['transaksi' => $transaksi, 'paginate' => $paginate]);
     }
     public function pesanan2()
@@ -35,6 +35,11 @@ class TransaksiController extends Controller
         $transaksi = Transaksi::with('label','barang','user')->get();
         $paginate = Transaksi::orderBy('id', 'asc')->where('users_id',Auth::user()->id)->paginate(5);
         return view('BarangPage.pesanan', ['transaksi' => $transaksi, 'paginate' => $paginate]);
+    }
+    public function buktibayar($id)
+    {
+        $transaksi = Transaksi::where('id', $id)->first();
+        return view('BarangPage.buktipembayaran', ['transaksi' => $transaksi]);
     }
 
     /**
@@ -66,6 +71,8 @@ class TransaksiController extends Controller
         $transaksi->barang_id = $barang->id;
         $transaksi->label_id = $barang->label_id;
         $transaksi->users_id = Auth::user()->id;
+        $transaksi->berat = $barang->berat;
+        $transaksi->satuan = $barang->satuan;
         $namaorang=DB::table('users')->where('id',Auth::user()->id)->first();
         $transaksi->harga = $barang->harga;
         $transaksi->namaorang = $namaorang->name;
@@ -96,6 +103,14 @@ class TransaksiController extends Controller
         $barang = Barang::with('label')->where('id', $id)->first();
         return view('BarangPage.pembelian', compact('barang'));
     }
+    public function cetakresi($id)
+    {
+        $paginate = Transaksi::with('barang','label')->where('id', $id)->first();
+        $pdf = PDF::loadview('BarangPage.cetakresi', compact('paginate'));
+        $customPaper = array(0,0,567.00,400.80);
+        $pdf->setPaper($customPaper, 'potrait');
+        return $pdf->stream();
+    }
 
     /**
      * Update the specified resource in storage.
@@ -106,7 +121,26 @@ class TransaksiController extends Controller
      */
     public function update(Request $request, $id)
     {
-        
+        if ($request->file('image')) {
+            $image_name = $request->file('image')->store('images', 'public');
+         }
+         $transaksi = Transaksi::find($id);
+         $transaksi->bukti = $image_name;
+         $transaksi->save();
+            
+        return redirect()->route('transaksi.index');
+        }
+    
+    public function update3(Request $request, $id)
+    {
+        if ($request->file('image')) {
+            $image_name = $request->file('image')->store('images', 'public');
+            $transaksi=Transaksi::find($id);
+            $transaksi->bukti=$image_name;
+            $transaksi->save();
+            
+        return redirect('/pemesanan');
+        }
     }
     public function update2(Request $request, $id)
     {
@@ -121,6 +155,9 @@ class TransaksiController extends Controller
         $inventaris->stock=$transaksi->jumlah;
         $inventaris->stockbaru=$barang->stock;
         $inventaris->status="Barang Keluar";
+        $inventaris->berat=$barang->berat;
+        $inventaris->satuan=$barang->satuan;
+        $transaksi->total=$transaksi->jumlah*$transaksi->harga;
         $barang->save();
         $transaksi->save();
         $inventaris->save();
